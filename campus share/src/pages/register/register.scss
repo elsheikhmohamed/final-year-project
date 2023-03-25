@@ -17,6 +17,7 @@
   transform: translate(-50%, -50%);
 
   display: flex;
+  overflow: visible;
   flex-direction: column;
   align-items: center;
   background-color: #fff;
@@ -43,7 +44,9 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+
   transition: all 0.3s ease;
+
 }
 
 .reg-card input {
@@ -70,8 +73,28 @@
 .join-us a:hover {
   text-decoration: underline;
 }
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .reg-card {
+    padding: 50px;
+    width: 90%;
+  }
+}
 
-.login-btn-reg:hover,
+/* Medium screens */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  .reg-card {
+    padding: 50px;
+  }
+}
+
+/* Large screens */
+@media only screen and (min-width: 901px) {
+  .reg-card {
+    padding: 80px;
+  }
+}
+
 .reg-btn:hover {
   background-color: #148f77;
 }

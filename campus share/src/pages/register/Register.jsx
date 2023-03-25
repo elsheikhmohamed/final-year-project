@@ -12,10 +12,11 @@ const Register = () => {
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
 
-          <button className="reg-btn">Register</button>
-          <label className="join-us">
+          <button class="reg-btn">Register</button>
+
+          <div class="join-us">
             Already have an account? <Link to="/login">Login</Link>
-          </label>
+          </div>
         </form>
       </div>
     </div>

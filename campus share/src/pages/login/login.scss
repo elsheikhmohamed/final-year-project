@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.register {
+.login {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@
   background-color: #f2f2f2;
 }
 
-.reg-card {
+.login-card {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -29,13 +29,13 @@
   text-align: center;
 }
 
-.reg-card h1 {
+.login-card h1 {
   font-size: 3rem;
   color: #000;
   margin-bottom: 30px;
 }
 
-.reg-btn {
+.login-btn {
   background-color: #1abc9c;
   border: none;
   color: #fff;
@@ -47,7 +47,7 @@
   transition: all 0.3s ease;
 }
 
-.reg-card input {
+.login-card input {
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -74,26 +74,26 @@
 
 /* Small screens */
 @media only screen and (max-width: 600px) {
-  .reg-card {
-    padding: 40px;
+  .login-card {
+    padding: 50px;
+    width: 90%;
   }
 }
 
 /* Medium screens */
 @media only screen and (min-width: 601px) and (max-width: 900px) {
-  .reg-card {
+  .login-card {
     padding: 50px;
   }
 }
 
 /* Large screens */
 @media only screen and (min-width: 901px) {
-  .reg-card {
+  .login-card {
     padding: 80px;
   }
 }
 
-.login-btn-reg:hover,
-.reg-btn:hover {
+.login-btn:hover {
   background-color: #148f77;
 }
