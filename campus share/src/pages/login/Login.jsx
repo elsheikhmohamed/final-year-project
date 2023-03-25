@@ -11,13 +11,13 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <div className="login-cad">
+    <div className="register">
+      <div className="reg-card">
         <h1>Login</h1>
-        <form className="login-form">
+        <form className="reg-form">
           <input type="text" id="username" placeholder="Username" />
           <input type="password" id="password" placeholder="Password" />
-          <button className="login-btn" onClick={handleLogin}>
+          <button className="reg-btn" onClick={handleLogin}>
             Login
           </button>
           <label className="join-us">
