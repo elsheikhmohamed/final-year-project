@@ -39,12 +39,10 @@
 
       .uInfo {
         height: 180px;
-        -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-        -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
         box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
         border-radius: 20px;
-        background-color: themed("bg");
-        color: themed("textColor");
+        background-color: #222222;
+        color: #ffffff;
         padding: 50px;
         display: flex;
         align-items: center;
@@ -55,7 +53,7 @@
           flex-direction: column;
           height: 30vh;
           padding: 20px;
-          margin-top: 100px;
+          margin-top: 30px;
         }
 
         .left {
@@ -128,8 +126,7 @@
   }
 
   .profilePic {
-    transform: translateX(-393%);
-    margin-top: 63px;
+    transform: translate(-393%, -2px);
   }
   .center {
     margin-top: 40px;
