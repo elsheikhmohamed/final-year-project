@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.login-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.login-card h1 {
+  font-size: 3rem;
+  color: #000;
+  margin-bottom: 30px;
+}
+
+.login-btn {
+  background-color: #1abc9c;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.login-card input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.join-us {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+}
+
+.join-us a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.join-us a:hover {
+  text-decoration: underline;
+}
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .login-card {
+    padding: 50px;
+    width: 90%;
+  }
+}
+
+/* Medium screens */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  .login-card {
+    padding: 50px;
+  }
+}
+
+/* Large screens */
+@media only screen and (min-width: 901px) {
+  .login-card {
+    padding: 80px;
+  }
+}
+
+.login-btn:hover {
+  background-color: #148f77;
+}
