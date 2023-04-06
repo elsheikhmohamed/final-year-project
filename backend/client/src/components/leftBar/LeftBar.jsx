@@ -6,10 +6,15 @@ import Articles from "../../assets/article.png";
 import Notes from "../../assets/notes.png";
 import Settings from "../../assets/settings.png";
 import Logout from "../../assets/logout.png";
+import { AuthContext } from "../../context/authContext";
+import { useContext } from "react";
 
 const LeftBar = () => {
+  const { currentUser } = useContext(AuthContext);
   return (
     <div className="leftBar">
+      
+      <span> Hello, {currentUser.name}</span>
       <div className="container">
         <MenuSection title="Main">
           <MenuItem icon={Home} text="Home" />
