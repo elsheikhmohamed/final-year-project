@@ -15,6 +15,7 @@ import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, error, data } = useQuery(["likes", post.id], () =>
@@ -57,8 +58,6 @@ const Post = ({ post }) => {
     deleteMutation.mutate(post.id);
   };
 
-  console.log(data);
-
   return (
     <div className="post">
       <div className="container">
@@ -75,7 +74,10 @@ const Post = ({ post }) => {
               <span className="date">{moment(post.createdDate).fromNow()}</span>
             </div>
           </div>
-          <MoreHorizIcon />
+          <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
+          {menuOpen && post.userId === currentUser.id && (
+            <button onClick={handleDelete}>delete</button>
+          )}
         </div>
         <div className="content">
           <p>{post.desc}</p>
