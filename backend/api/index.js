@@ -1,27 +1,41 @@
-import express from 'express';
+import express from "express";
 const app = express();
-import userRoutes from './routes/users.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import commentRoutes from "./routes/comments.js";
 import relationshipRoutes from "./routes/relationships.js";
 import likeRoutes from "./routes/likes.js";
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import multer from 'multer';
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import multer from "multer";
 
+// MongoDB connection
+dotenv.config();
+
+
+async function connect() {
+  await mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  console.log("Connected to MongoDB");
+}
+connect();
 
 //middleware routes
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Credentials", true);
-    next();
-  });
-  app.use(express.json());
-  app.use(
-    cors({
-      origin: "http://localhost:3000",
-    })
-  );
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
+app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
@@ -40,15 +54,13 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json(file.filename);
 });
 
-
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/comments', commentRoutes);
-app.use('/api/likes', likeRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/likes", likeRoutes);
 app.use("/api/relationships", relationshipRoutes);
 
-
 app.listen(8800, () => {
-    console.log('Server is running on port 8800')
+  console.log("Server is running on port 8800");
 });

@@ -58,7 +58,7 @@ const Profile = () => {
           <div className="profilePicContainer"></div>
           <div className="profileContainer">
             <div className="uInfo">
-              <img src={"/upload/" + data?.profilePic} alt="" className="profilePic" />
+              <img src={data?.profilePic} alt="" className="profilePic" />
               <div className="center">
                 <span>{data?.name}</span>
                 <div className="info">

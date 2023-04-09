@@ -50,3 +50,17 @@ $themes: (
     @content;
   }
 }
+$mobile: "only screen and (max-width: 767px)";
+$tablet: "only screen and (max-width: 991px)";
+
+@mixin mobile {
+  @media #{$mobile} {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media #{$tablet} {
+    @content;
+  }
+}

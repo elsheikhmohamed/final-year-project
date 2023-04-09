@@ -57,7 +57,6 @@ const Update = ({ setOpenUpdate, user }) => {
     <div className="update">
       Update
       <form>
-        <input type="file" on onChange={e=> setProfile(e.target.files[0])}/>
         <input type="text" name="name" onChange={handleChange} />
         <input type="text" name="university" onChange={handleChange} />
         <button onClick={handleClick} >Update</button>
