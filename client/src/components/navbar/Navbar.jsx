@@ -1,23 +1,24 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { EmailOutlined, SearchOutlined, Logout } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
-import axios from 'axios';
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { EmailOutlined, SearchOutlined, Logout } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { useUserData } from "../../context/userDataContext";
+import axios from "axios";
 
-import { AuthContext } from '../../context/authContext';
+import { AuthContext } from "../../context/authContext";
 
-import './navbar.scss';
-import Logo from '../../assets/logo.png';
+import "./navbar.scss";
+import Logo from "../../assets/logo.png";
+import noUser from "../../assets/defaultProfilePic.png";
 
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
-
+  const { userData } = useUserData();
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -25,27 +26,24 @@ const Navbar = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:8800/api/searchs?query=${searchQuery}`);
+      const response = await fetch(
+        `http://localhost:8800/api/searchs?query=${searchQuery}`
+      );
 
       const results = await response.json();
       setSearchResults(results);
     } catch (error) {
-      console.error('Error searching:', error);
+      console.error("Error searching:", error);
     }
   };
 
   const handleLogout = async () => {
     try {
       await axios.post("http://localhost:8800/api/auth/logout");
-      // Clear the user state in the AuthContext
-      // Replace this comment with the code to clear the user state in your AuthContext
-      // e.g., setUser(null);
-      
-
       // Redirect to the login page
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 
@@ -64,7 +62,7 @@ const Navbar = () => {
             value={searchQuery}
             onChange={handleSearchInputChange}
             onKeyPress={(event) => {
-              if (event.key === 'Enter') {
+              if (event.key === "Enter") {
                 handleSearch();
               }
             }}
@@ -82,7 +80,14 @@ const Navbar = () => {
           <Link to={`/profile/${currentUser.id}`}>
             {currentUser && (
               <img
-                src={`/upload/${currentUser.profilePic}`}
+                src={
+                  userData[currentUser.id]?.profilePic || currentUser.profilePic
+                    ? `/upload/${
+                        userData[currentUser.id]?.profilePic ||
+                        currentUser.profilePic
+                      }`
+                    : noUser
+                }
                 alt="User Profile"
                 className="user-image"
               />

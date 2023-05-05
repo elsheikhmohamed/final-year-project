@@ -32,9 +32,17 @@ export const updateUser = (req, res) => {
       ],
       (err, data) => {
         if (err) res.status(500).json(err);
-        if (data.affectedRows > 0) return res.json("Updated!");
+        if (data.affectedRows > 0) {
+          // Return the updated user object
+          const updatedUser = {
+            ...req.body,
+            id: userInfo.id,
+          };
+          return res.json(updatedUser);
+        }
         return res.status(403).json("You can update only your own user information!");
       }
     );
   });
 };
+

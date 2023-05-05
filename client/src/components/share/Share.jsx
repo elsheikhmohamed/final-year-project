@@ -2,18 +2,20 @@ import "./share.scss";
 
 // Import image assets
 import Image from "../../assets/img.png";
+import noUser from "../../assets/defaultProfilePic.png";
 
 // Import dependencies
 import { useSharePost } from "../../hooks/useSharePost";
+import { useUserData } from "../../context/userDataContext";
 import { useState } from "react";
 import { makeRequest } from "../../axios";
-
-
 
 const Share = () => {
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
   const { currentUser, mutation } = useSharePost();
+  const { userData } = useUserData();
+  const user = userData[currentUser.id] || currentUser;
 
   const upload = async () => {
     try {
@@ -41,14 +43,14 @@ const Share = () => {
         <div className="share-input-section">
           <div className="share-user-image">
             <img
-              src={`/upload/${currentUser?.profilePic}`}
+              src={user?.profilePic ? `/upload/${user?.profilePic}` : noUser}
               alt="User Profile"
-              className="profilePic"
+              className="shareProfilePic"
             />
 
             <input
               type="text"
-              placeholder={`What's on your mind ${currentUser.name}?`}
+              placeholder={`What's on your mind ${user.name}?`}
               onChange={(e) => setDesc(e.target.value)}
               value={desc}
             />

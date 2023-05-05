@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
+import noUser from "../../assets/defaultProfilePic.png";
 
 // Styles
 import './comments.scss';
 
 // Context
 import { AuthContext } from '../../context/authContext';
+import { useUserData } from "../../context/userDataContext";
 
 // Moment.js
 import moment from 'moment';
@@ -15,6 +17,8 @@ import { useComments } from '../../hooks/useComments';
 const Comments = ({ postId }) => {
   const [desc, setDesc] = useState('');
   const { currentUser } = useContext(AuthContext);
+  const { userData } = useUserData();
+  const user = userData[currentUser.id] || currentUser;
 
   const { isLoading, error, data, addCommentMutation } = useComments(postId);
 
@@ -29,7 +33,11 @@ const Comments = ({ postId }) => {
   return (
     <div className="comments">
       <div className="comments-write">
-      <img src={"/upload/" + currentUser.profilePic} alt="" />
+        <img
+          src={user.profilePic ? "/upload/" + user.profilePic : noUser}
+          alt="User Profile"
+        />
+
         <input
           type="text"
           placeholder="write a comment"
@@ -47,7 +55,10 @@ const Comments = ({ postId }) => {
       ) : (
         data.map((comment) => (
           <div className="comments-comment" key={comment.id}>
-            <img src={"/upload/" + comment.profilePic} alt="" />
+            <img
+              src={comment.profilePic ? "/upload/" + comment.profilePic : noUser}
+              alt="User Profile"
+            />
             <div className="comments-info">
               <span>{comment.name}</span>
               <p>{comment.desc}</p>

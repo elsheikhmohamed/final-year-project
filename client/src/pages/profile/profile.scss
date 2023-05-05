@@ -22,12 +22,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      
 
       background-color: themed("bgSoft");
     }
 
     .profileContainer {
       padding: 20px 70px;
+      margin: 0 auto;
+      max-width: 900px;
 
       @include tablet {
         padding: 20px;

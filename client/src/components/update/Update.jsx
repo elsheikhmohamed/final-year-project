@@ -2,14 +2,19 @@ import "./update.scss";
 import { useState } from "react";
 import { makeRequest } from "../../axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../../context/authContext";
+import { useUserData } from "../../context/userDataContext";
 
-const Update = ({ setOpenUpdate, user }) => {
+const Update = ({ setOpenUpdate }) => {
+  const { currentUser } = useAuth();
+  const { userData, setUserData } = useUserData();
+
   const [profile, setProfile] = useState(null);
   const [texts, setTexts] = useState({
-    name: user.name,
-    university: user.university,
+    name: currentUser.name,
+    university: currentUser.university,
   });
-  
+
   const [tempTexts, setTempTexts] = useState({ ...texts });
 
   const upload = async (file) => {
@@ -48,28 +53,30 @@ const Update = ({ setOpenUpdate, user }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-  
+
     let profileUrl;
     if (profile) {
       profileUrl = await upload(profile);
     } else {
-      profileUrl = user.profilePic;
+      profileUrl = currentUser.profilePic;
     }
-  
+
     const updatedUser = {
-      ...user,
+      ...currentUser,
       ...tempTexts,
       profilePic: profileUrl,
     };
-  
-    setTexts(tempTexts); // Add this line to update the 'texts' state with the values from 'tempTexts'
-  
-    mutation.mutate(updatedUser);
-    setOpenUpdate(false);
-    setProfile(null);
+
+    setTexts(tempTexts);
+
+    mutation.mutate(updatedUser, {
+      onSuccess: (updatedUserFromServer) => {
+        setUserData({ ...userData, [updatedUserFromServer.id]: updatedUserFromServer });
+        setOpenUpdate(false);
+        setProfile(null);
+      },
+    });
   };
-  
-  
 
   return (
     <div className="update-container">
@@ -93,7 +100,7 @@ const Update = ({ setOpenUpdate, user }) => {
         />
         <label htmlFor="profilePic">Profile Picture:</label>
         <div className="imgContainer">
-          <img src={`/upload/${user.profilePic}`} alt="Profile" />
+          <img src={`/upload/${currentUser.profilePic}`} alt="Profile" />
         </div>
         <input
           type="file"

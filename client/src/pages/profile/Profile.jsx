@@ -1,6 +1,7 @@
 import "./profile.scss";
 
 import SchoolIcon from "@mui/icons-material/School";
+import noUser from "../../assets/defaultProfilePic.png";
 
 import { AuthContext } from "../../context/authContext";
 import Posts from "../../components/posts/Posts";
@@ -57,7 +58,11 @@ const Profile = () => {
           <div className="profilePicContainer"></div>
           <div className="profileContainer">
             <div className="uInfo">
-            <img src={`/upload/${data?.profilePic}`} alt="" className="profilePic" />
+            <img 
+              src={data?.profilePic ? `/upload/${data?.profilePic}` : noUser}
+  alt="Profile picture" 
+  className="profilePic" 
+/>
 
               <div className="center">
                 <span>{data?.name}</span>

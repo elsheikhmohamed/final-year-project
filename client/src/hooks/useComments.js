@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '../axios';
-import React, { useContext, useState } from 'react';
+import  { useContext } from 'react';
 import { UserDataContext } from '../context/userDataContext';
 
 export const useComments = (postId) => {

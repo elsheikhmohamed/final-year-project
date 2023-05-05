@@ -5,6 +5,10 @@ import { makeRequest } from "../axios";
 
 export const UserDataContext = createContext();
 
+export const useUserData = () => {
+  return useContext(UserDataContext);
+};
+
 export const UserDataContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const { currentUser } = useContext(AuthContext);
