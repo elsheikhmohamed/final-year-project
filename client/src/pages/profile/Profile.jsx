@@ -23,6 +23,24 @@ const Profile = () => {
     })
   );
 
+  const { isLoading: followersCountIsLoading, data: followersCountData } =
+    useQuery(["followersCount"], () =>
+      makeRequest
+        .get("/relationships/followers-count/" + userId)
+        .then((res) => {
+          return res.data;
+        })
+    );
+
+  const { isLoading: followingCountIsLoading, data: followingCountData } =
+    useQuery(["followingCount"], () =>
+      makeRequest
+        .get("/relationships/following-count/" + userId)
+        .then((res) => {
+          return res.data;
+        })
+    );
+
   const { isLoading: relationshipIsLoading, data: relationshipData } = useQuery(
     ["relationship"],
     () =>
@@ -55,27 +73,48 @@ const Profile = () => {
         "loading"
       ) : (
         <>
-          <div className="profilePicContainer"></div>
+          <div className="profilePicContainer">
+            <img
+              src={data?.profilePic ? `/upload/${data?.profilePic}` : noUser}
+              alt="user profile"
+              className="profilePic"
+            />
+          </div>
           <div className="profileContainer">
             <div className="uInfo">
-            <img 
-              src={data?.profilePic ? `/upload/${data?.profilePic}` : noUser}
-  alt="Profile picture" 
-  className="profilePic" 
-/>
-
+              <div className="left">
+                <h2>{data?.name}</h2>
+                <p>@{data?.username}</p>
+              </div>
+              <div className="right">
+                <div className="item">
+                  <SchoolIcon />
+                  <span>{data?.university}</span>
+                </div>
+              </div>
               <div className="center">
-                <span>{data?.name}</span>
                 <div className="info">
                   <div className="item">
-                    <SchoolIcon />
-                    <span>{data?.university}</span>
+                    <span>
+                      {followersCountIsLoading
+                        ? "Loading..."
+                        : followersCountData?.followers + " Followers"}
+                    </span>
+                  </div>
+                  <div className="item">
+                    <span>
+                      {followingCountIsLoading
+                        ? "Loading..."
+                        : followingCountData?.following + " Following"}
+                    </span>
                   </div>
                 </div>
                 {relationshipIsLoading ? (
                   "Loading"
                 ) : userId === currentUser.id ? (
-                  <button onClick={() => setOpenUpdate(true)}>Update</button>
+                  <button onClick={() => setOpenUpdate(true)}>
+                    Edit Profile
+                  </button>
                 ) : (
                   <button onClick={handleFollow}>
                     {relationshipData.includes(currentUser.id)
@@ -84,12 +123,14 @@ const Profile = () => {
                   </button>
                 )}
               </div>
+              <br/>
+
             </div>
             <Posts userId={userId} />
           </div>
         </>
       )}
-      {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={data}/>} 
+      {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={data} />}
     </section>
   );
 };

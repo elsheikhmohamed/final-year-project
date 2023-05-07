@@ -49,11 +49,6 @@ io.on("connection", (socket) => {
 
 // Middleware routes
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
-
-app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store");
   next();
 });

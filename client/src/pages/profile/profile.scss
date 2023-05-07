@@ -4,26 +4,19 @@
   @include themify($themes) {
     background-color: themed("bgSoft");
 
-    .images {
-      position: relative;
-    }
-
     .profilePic {
-      position: absolute;
-      top: 53px;
-      left: 540px;
       width: 100px;
       height: 100px;
       border-radius: 50%;
       object-fit: cover;
+      margin-bottom: 0px;
+      margin-top: 15px;
     }
-
+      
     .profilePicContainer {
       display: flex;
       align-items: center;
       justify-content: center;
-      
-
       background-color: themed("bgSoft");
     }
 
@@ -41,67 +34,45 @@
       }
 
       .uInfo {
-        height: 180px;
-        box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-        border-radius: 20px;
-        background-color: #222222;
-        color: #ffffff;
-        padding: 50px;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-
-        @include mobile {
-          flex-direction: column;
-          height: 30vh;
-          padding: 20px;
-          margin-top: 30px;
-        }
+        gap: 20px;
 
         .left {
-          flex: 1;
           display: flex;
-          gap: 10px;
+          flex-direction: column;
+          gap: 5px;
+          font-weight: 500;
 
-          @include tablet {
-            flex-wrap: wrap;
+          h2 {
+            font-size: 24px;
           }
 
-          a {
+          p {
+            font-size: 16px;
             color: themed("textColorSoft");
           }
         }
 
         .center {
-          flex: 1;
           display: flex;
-          flex-direction: column;
           align-items: center;
           gap: 10px;
 
-          span {
-            font-size: 30px;
-            font-weight: 500;
-          }
-
           .info {
-            width: 100%;
             display: flex;
-            align-items: center;
-            justify-content: space-around;
+            gap: 20px;
 
             .item {
               display: flex;
               align-items: center;
               gap: 5px;
+              font-size: 14px;
               color: themed("textColorSoft");
-
-              span {
-                font-size: 12px;
-              }
             }
           }
+
           button {
             border: none;
             background-color: #5271ff;
@@ -117,6 +88,17 @@
           align-items: center;
           justify-content: flex-end;
           gap: 10px;
+
+          .item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: themed("textColorSoft");
+
+            span {
+              font-size: 12px;
+            }
+          }
         }
       }
     }
@@ -126,12 +108,5 @@
 @media only screen and (max-width: 768px) {
   .profileContainer {
     padding: 10px;
-  }
-
-  .profilePic {
-    transform: translate(-393%, -2px);
-  }
-  .center {
-    margin-top: 40px;
   }
 }

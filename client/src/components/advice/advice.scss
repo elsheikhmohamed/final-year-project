@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
+
+.advice {
+  background-color: rgb(255, 255, 255);
+  display: grid;
+  place-items: center;
+  position: relative;
+  font-family: 'Manrope';
+}
+
+.advice-container {
+  background-color: hsl(0, 0%, 0%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 14vh;
+  width: 50rem;
+  gap: 2rem;
+  box-shadow: rgba(100, 100, 111, 0.66) 0px 7px 29px 0px;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+}
+
+.title {
+  color: hsl(150, 100%, 66%);
+  text-transform: uppercase;
+  font-size: smaller;
+  font-weight: 800;
+  word-spacing: 5px;
+}
+
+.advice-text {
+  color: hsl(0, 0%, 100%);
+  height: 3rem;
+  width: 100%;
+  text-align: center;
+  font-size: larger;
+}
+
+.advice-search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .search-input {
+    border: none;
+    width: 500px;
+    color: themed("textColor");
+    padding: 3px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &.invalid {
+      border: 2px solid red;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+}
+
+.search-button {
+  padding: auto;
+  background-color: hsl(0, 0%, 0%);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.disclaimer {
+  color: red;
+  font-size: smaller;
+}

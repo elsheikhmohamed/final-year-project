@@ -78,23 +78,23 @@ const ChatBox = () => {
   };
 
   return (
-    <div className="app">
+    <div className="chat">
       {!joined ? (
         <div className="join-screen">
-          <h2>Join Chatroom</h2>
+          <h2>Join Discussion Room</h2>
           <input
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
+            placeholder="Enter Your Name"
           />
           <button onClick={joinChat}>Join</button>
         </div>
       ) : (
         <div className="chat-screen">
           <div className="header">
-            <div className="logo">Chatroom</div>
+            <div className="logo">Discussion Room</div>
           </div>
           <div className="messages">
             {messages.map((message, index) => (
@@ -104,7 +104,7 @@ const ChatBox = () => {
               </React.Fragment>
             ))}
           </div>
-          <div className="typebox">
+          <div className="type-box">
             <input
               type="text"
               id="message-input"

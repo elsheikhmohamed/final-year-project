@@ -4,6 +4,7 @@ import Register from './pages/register/Register';
 
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
+import NavPages from './components/navPages/NavPages';
 
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
@@ -12,6 +13,7 @@ import { DarkModeContext } from './context/darkModeContext';
 import { AuthContext } from './context/authContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ChatBox from './components/chatBox/ChatBox';
+import Advice from './components/advice/Advice'; 
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -23,6 +25,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <div className={`theme-${darkMode ? 'dark' : 'light'}`}>
           <Navbar />
+          <NavPages />
           <div style={{ display: 'flex', flexGrow: 1 }}>
             <div style={{ flex: 6 }}>{children}</div>
           </div>
@@ -30,6 +33,7 @@ function App() {
       </QueryClientProvider>
     );
   };
+
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
@@ -73,6 +77,16 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Layout>
             <ChatBox chatRoomId={1} currentUser={currentUser} />
+          </Layout>
+        </QueryClientProvider>
+      ),
+    },
+    {
+      path: '/advice', 
+      element: (
+        <QueryClientProvider client={queryClient}>
+          <Layout>
+            <Advice/>
           </Layout>
         </QueryClientProvider>
       ),

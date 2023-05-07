@@ -29,6 +29,25 @@ export const addRelationship = (req, res) => {
     });
   });
 };
+export const getFollowersCount = (req, res) => {
+  const userId = req.params.userId;
+  const q = "SELECT COUNT(*) as followers FROM relationships WHERE followedUserId=?";
+
+  db.query(q, [userId], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.json(data[0]);
+  });
+};
+
+export const getFollowingCount = (req, res) => {
+  const userId = req.params.userId;
+  const q = "SELECT COUNT(*) as following FROM relationships WHERE followerUserId=?";
+
+  db.query(q, [userId], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.json(data[0]);
+  });
+};
 
 export const deleteRelationship = (req, res) => {
 

@@ -41,9 +41,10 @@ const Navbar = () => {
     try {
       await axios.post("http://localhost:8800/api/auth/logout");
       // Redirect to the login page
-      navigate("/login");
+      navigate('/login');
+
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error('Error logging out:', error);
     }
   };
 

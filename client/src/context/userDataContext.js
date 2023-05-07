@@ -13,14 +13,24 @@ export const UserDataContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const { currentUser } = useContext(AuthContext);
 
-  const { isLoading, data } = useQuery(["user"], async () => {
-    const response = await makeRequest.get("/users/find/" + currentUser.id);
-    return response.data;
-  });
+  const { isLoading, data } = useQuery(
+    ["user"],
+    async () => {
+      if (currentUser && currentUser.id) {
+        const response = await makeRequest.get("/users/find/" + currentUser.id);
+        return response.data;
+      }
+      return null;
+    },
+    { enabled: !!currentUser }
+  );
+  
 
   useEffect(() => {
-    if (!isLoading) {
-      setUserData({ ...userData, [data.id]: data });
+    if (!isLoading && data) {
+      setUserData((prevUserData) => {
+        return { ...prevUserData, [data.id]: data };
+      });
     }
   }, [isLoading, data]);
 

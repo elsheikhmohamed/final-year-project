@@ -3,13 +3,14 @@ import jwt from "jsonwebtoken";
 
 export const getUser = (req, res) => {
   const userId = req.params.userId;
-  const q = "SELECT id, name, email, profilePic, university FROM users WHERE id=?";
+  const q = "SELECT id, name, email,username, profilePic, university FROM users WHERE id=?";
 
   db.query(q, [userId], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.json(data[0]);
   });
 };
+
 
 
 export const updateUser = (req, res) => {
@@ -32,17 +33,9 @@ export const updateUser = (req, res) => {
       ],
       (err, data) => {
         if (err) res.status(500).json(err);
-        if (data.affectedRows > 0) {
-          // Return the updated user object
-          const updatedUser = {
-            ...req.body,
-            id: userInfo.id,
-          };
-          return res.json(updatedUser);
-        }
+        if (data.affectedRows > 0) return res.json("Updated!");
         return res.status(403).json("You can update only your own user information!");
       }
     );
   });
 };
-
