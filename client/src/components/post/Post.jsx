@@ -15,6 +15,7 @@ import { useHandleLike } from "../../hooks/useHandleLike";
 import { useHandleDelete } from "../../hooks/useHandleDelete";
 import { makeRequest } from "../../axios";
 
+
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +28,8 @@ const Post = ({ post }) => {
   const { handleDelete } = useHandleDelete(post.id);
 
   const [postCreatorData, setPostCreatorData] = useState(null);
+
+
 
   useEffect(() => {
     const fetchPostCreatorData = async () => {
@@ -67,19 +70,24 @@ const Post = ({ post }) => {
           )}
         </div>
         <div className="content">
-  <p>{post.desc}</p>
-  {post.img.endsWith(".pdf") ? (
-    <embed
-      className="post-pdf"
-      src={`./upload/${post.img}`}
-      type="application/pdf"
-      width="100%"
-      height="500px"
-    />
-  ) : (
-    <img src={`./upload/${post.img}`} alt="" />
-  )}
-</div>
+          <p>{post.desc}</p>
+          {post.img.endsWith(".pdf") ? (
+            <div
+              className="pdf-container"
+              style={{ height: "842px", overflow: "auto" }}
+            >
+              <embed
+                className="post-pdf"
+                src={`/upload/${post.img}`}
+                type="application/pdf"
+                width="100%"
+                height="100%"
+              />
+            </div>
+          ) : (
+            <img src={`/upload/${post.img}`} alt="" />
+          )}
+        </div>
 
         <div className="info">
           <div className="item">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./register.scss";
 
@@ -12,13 +12,21 @@ const Register = () => {
     universityEmail: "",
   });
   const [error, setError] = useState(null);
+    const [inputErrors, setInputErrors] = useState({});
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
+    setInputErrors({
+      ...inputErrors,
+      [event.target.name]: !event.target.validity.valid,
+    });
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,10 +40,26 @@ const Register = () => {
 
     try {
       await axios.post("http://localhost:8800/api/auth/register", formData);
+      setShowPopup(true);
     } catch (error) {
       setError(error.response.data);
     }
   };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    navigate("/login");
+  };
+
+  const Popup = () => (
+    <div className="popup">
+      <div className="popup-inner">
+        <h2>User created successfully!</h2>
+        <p>Please log in to continue.</p>
+        <button onClick={closePopup}>Close</button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="register">
@@ -46,29 +70,37 @@ const Register = () => {
             type="text"
             placeholder="Name"
             name="name"
+            className={inputErrors.name ? "error" : ""}
             value={formData.name}
             onChange={handleChange}
+            required
           />
           <input
             type="text"
             placeholder="Username"
             name="username"
+            className={inputErrors.username ? "error" : ""}
             value={formData.username}
             onChange={handleChange}
+            required
           />
           <input
             type="email"
             placeholder="University Email"
             name="universityEmail"
+            className={inputErrors.universityEmail ? "error" : ""}
             value={formData.universityEmail}
             onChange={handleChange}
+            required
           />
           <input
             type="password"
             placeholder="Password"
             name="password"
+            className={inputErrors.password ? "error" : ""}
             value={formData.password}
             onChange={handleChange}
+            required
           />
 
           {error && <p>{error}</p>}
@@ -82,6 +114,7 @@ const Register = () => {
           </div>
         </form>
       </div>
+      {showPopup && <Popup />}
     </div>
   );
 };

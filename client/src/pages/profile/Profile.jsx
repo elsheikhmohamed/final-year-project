@@ -5,7 +5,7 @@ import noUser from "../../assets/defaultProfilePic.png";
 
 import { AuthContext } from "../../context/authContext";
 import Posts from "../../components/posts/Posts";
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -67,6 +67,14 @@ const Profile = () => {
   const handleFollow = () => {
     mutation.mutate(relationshipData.includes(currentUser.id));
   };
+  useEffect(() => {
+    if (!mutation.isLoading) {
+      queryClient.invalidateQueries(["followersCount"]);
+      queryClient.invalidateQueries(["followingCount"]);
+    }
+  }, [mutation.isLoading, queryClient]);
+  
+
   return (
     <section className="profile">
       {isLoading ? (
@@ -123,8 +131,7 @@ const Profile = () => {
                   </button>
                 )}
               </div>
-              <br/>
-
+              <br />
             </div>
             <Posts userId={userId} />
           </div>

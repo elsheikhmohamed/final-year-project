@@ -1,11 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { EmailOutlined, SearchOutlined, Logout } from "@mui/icons-material";
+import { SearchOutlined, Logout } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { useUserData } from "../../context/userDataContext";
 import axios from "axios";
 
 import { AuthContext } from "../../context/authContext";
+import useClickOutside from '../../hooks/useClickOutside';
+
 
 import "./navbar.scss";
 import Logo from "../../assets/logo.png";
@@ -19,6 +21,13 @@ const Navbar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const { userData } = useUserData();
+
+
+  const searchResultsRef = useRef();
+
+  useClickOutside(searchResultsRef, () => {
+    setSearchResults([]);
+  });
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -41,13 +50,13 @@ const Navbar = () => {
     try {
       await axios.post("http://localhost:8800/api/auth/logout");
       // Redirect to the login page
-      navigate('/login');
-
+      navigate("/login");
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
-
+  console.log('currentUser:', currentUser);
+  console.log('userData:', userData);
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -71,9 +80,6 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-right">
-        <Link to="/chatBox" className="email-icon-link">
-          <EmailOutlined className="email-icon" />
-        </Link>
         <IconButton onClick={handleLogout}>
           <Logout className="logout-icon" />
         </IconButton>
@@ -97,9 +103,13 @@ const Navbar = () => {
         </div>
       </div>
       {searchResults.length > 0 && (
-        <div className="search-results">
+        <div className="search-results" ref={searchResultsRef}>
           {searchResults.map((result) => (
-            <div key={result.id} className="search-result">
+            <div
+              key={result.id}
+              className="search-result"
+              onClick={() => setSearchResults([])}
+            >
               <Link to={`/profile/${result.id}`}>{result.username}</Link>
             </div>
           ))}
@@ -108,5 +118,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;

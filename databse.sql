@@ -65,7 +65,7 @@ CREATE TABLE `likes` (
   KEY `likePostId_idx` (`postId`),
   CONSTRAINT `likePostId` FOREIGN KEY (`postId`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `likeUserId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `likes` (
 
 LOCK TABLES `likes` WRITE;
 /*!40000 ALTER TABLE `likes` DISABLE KEYS */;
-INSERT INTO `likes` VALUES (26,24,38),(27,24,39),(28,24,37),(29,24,36);
+INSERT INTO `likes` VALUES (26,24,38),(27,24,39),(28,24,37),(29,24,36),(30,21,38);
 /*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +95,7 @@ CREATE TABLE `posts` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `userId_idx` (`userId`),
   CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (36,'hello this is a test from test1','',21,'2023-04-28 23:49:26'),(37,'this is a test from test2','',22,'2023-04-28 23:50:10'),(38,'this is a test from test3','',23,'2023-04-28 23:50:59'),(39,'this test is from test4','',24,'2023-04-28 23:52:04'),(40,'','1682722436850download (1).jpeg',24,'2023-04-28 23:53:56');
+INSERT INTO `posts` VALUES (36,'hello this is a test from test1','',21,'2023-04-28 23:49:26'),(37,'this is a test from test2','',22,'2023-04-28 23:50:10'),(38,'this is a test from test3','',23,'2023-04-28 23:50:59'),(39,'this test is from test4','',24,'2023-04-28 23:52:04'),(40,'','1682722436850download (1).jpeg',24,'2023-04-28 23:53:56'),(41,'test 1 post ','',21,'2023-05-08 09:18:02'),(42,'here is a pdf test','1683534332411New Tab.pdf',22,'2023-05-08 09:25:32');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +125,7 @@ CREATE TABLE `relationships` (
   KEY `followedUser_idx` (`followedUserId`),
   CONSTRAINT `followedUser` FOREIGN KEY (`followedUserId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `followerUser` FOREIGN KEY (`followerUserId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +134,7 @@ CREATE TABLE `relationships` (
 
 LOCK TABLES `relationships` WRITE;
 /*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
-INSERT INTO `relationships` VALUES (11,24,21),(12,24,22),(13,24,23);
+INSERT INTO `relationships` VALUES (11,24,21),(12,24,22),(13,24,23),(14,21,22),(15,21,23),(16,21,24);
 /*!40000 ALTER TABLE `relationships` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +164,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (21,'test1','','$2a$10$Qtib.gp8KWCRFSlBQz5zLunjogBM.P3GPbwld1KHm1gfCewuHhIZG','test1','1682722100767download (1).jpeg','city uni'),(22,'test2','','$2a$10$S6068Cldo38Tj.XVt6ASQet.JI8MR1EBe4ClzJlnBx0DOU6XSbZH6','test2','1682722195924download (1).jpeg',NULL),(23,'test3','','$2a$10$B875yriXBHS9Y8B/hqZrsOpCQhckObipCv6eI1GsKeajm4.48rUoa','test3','1682722242593download (2).jpeg','old uni'),(24,'test4','','$2a$10$cIpSlTQoyHs0Kuu1q07.oOPvEYwR6z/PLGwHQikk6vsd6XHLI5lgq','test4','1682722305108download (2).jpeg',NULL);
+INSERT INTO `users` VALUES (21,'test1','','$2a$10$Qtib.gp8KWCRFSlBQz5zLunjogBM.P3GPbwld1KHm1gfCewuHhIZG','test1','1682722100767download (1).jpeg','city uni'),(22,'test2','','$2a$10$S6068Cldo38Tj.XVt6ASQet.JI8MR1EBe4ClzJlnBx0DOU6XSbZH6','test2','1682722195924download (1).jpeg',NULL),(23,'test3','','$2a$10$B875yriXBHS9Y8B/hqZrsOpCQhckObipCv6eI1GsKeajm4.48rUoa','test3','1682722242593download (2).jpeg','old uni'),(24,'test4','','$2a$10$cIpSlTQoyHs0Kuu1q07.oOPvEYwR6z/PLGwHQikk6vsd6XHLI5lgq','test4','1683533661270horse-png-image.jpg',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -176,3 +176,5 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-05-08 10:33:18

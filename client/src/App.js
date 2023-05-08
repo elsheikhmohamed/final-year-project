@@ -15,10 +15,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ChatBox from './components/chatBox/ChatBox';
 import Advice from './components/advice/Advice'; 
 
+const queryClient = new QueryClient();
+
 function App() {
   const { currentUser } = useContext(AuthContext);
   const { darkMode } = useContext(DarkModeContext);
-  const queryClient = new QueryClient();
 
   const Layout = ({ children }) => {
     return (

@@ -13,7 +13,7 @@ export const UserDataContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const { currentUser } = useContext(AuthContext);
 
-  const { isLoading, data } = useQuery(
+  const { data } = useQuery(
     ["user"],
     async () => {
       if (currentUser && currentUser.id) {
@@ -27,12 +27,12 @@ export const UserDataContextProvider = ({ children }) => {
   
 
   useEffect(() => {
-    if (!isLoading && data) {
+    if (data) {
       setUserData((prevUserData) => {
         return { ...prevUserData, [data.id]: data };
       });
     }
-  }, [isLoading, data]);
+  }, [data]);
 
   return (
     <UserDataContext.Provider value={{ userData, setUserData }}>
