@@ -12,6 +12,18 @@ CampusShare is a social media platform designed specifically for students to con
 - [Contact](#contact)
 
 
+## Technologies
+
+Project is built with:
+
+* MySQL 
+* ReactJS
+* JavaScript 
+* ExpressJS
+* JQuery
+* SocketIO
+* Node.js
+
 ## Getting Started:
 
 `Before you get started, ensure that you have the following software installed on your local machine:`
@@ -72,6 +84,15 @@ The `client` folder contains the `public` folder with `index.html` and `upload` 
 
 > This folder structure organises the codebase and separates the backend and frontend components, making it easier to manage and maintain the project.
 
+### Test Users
+
+***Please login with username test1 as it follows all users and and test all features better if you are logged in with this username.***
+
+    username: test1 password: test1
+    username: test2 password: test2
+    username: test3 password: test3
+    username: test4 password: test4
+
 ## Author
 
 - Name - **Mohamed El Sheikh**
@@ -86,3 +107,6 @@ Contributions are NOT welcomed at the moment! If you'd like to improve the app o
 ## Contact:
 
 If you have any questions or need support, please contact the app creator (Mohamed El Sheikh) at ***`elsheikhmoha@gmail.com`***
+
+
+### test 
