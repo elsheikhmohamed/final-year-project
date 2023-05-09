@@ -12,8 +12,8 @@ const Update = ({ setOpenUpdate, user }) => {
   
   const [tempTexts, setTempTexts] = useState({ ...texts });
 
+  // Function to upload a file
   const upload = async (file) => {
-    console.log(file);
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -24,6 +24,7 @@ const Update = ({ setOpenUpdate, user }) => {
     }
   };
 
+  // Function to handle input changes
   const handleChange = (e) => {
     if (e.target.name === "profilePic") {
       setProfile(e.target.files[0]);
@@ -34,6 +35,7 @@ const Update = ({ setOpenUpdate, user }) => {
 
   const queryClient = useQueryClient();
 
+  // Setup mutation for updating user data
   const mutation = useMutation(
     (user) => {
       return makeRequest.put("/users", user);
@@ -46,6 +48,7 @@ const Update = ({ setOpenUpdate, user }) => {
     }
   );
 
+  // Function to handle form submission
   const handleClick = async (e) => {
     e.preventDefault();
   
@@ -62,15 +65,13 @@ const Update = ({ setOpenUpdate, user }) => {
       profilePic: profileUrl,
     };
   
-    setTexts(tempTexts); 
+    setTexts(tempTexts);
   
     mutation.mutate(updatedUser);
     setOpenUpdate(false);
     setProfile(null);
   };
   
-  
-
   return (
     <div className="update-container">
       <h2>Update</h2>

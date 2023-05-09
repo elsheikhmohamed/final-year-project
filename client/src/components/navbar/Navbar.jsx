@@ -8,7 +8,6 @@ import axios from "axios";
 import { AuthContext } from "../../context/authContext";
 import useClickOutside from '../../hooks/useClickOutside';
 
-
 import "./navbar.scss";
 import Logo from "../../assets/logo.png";
 import noUser from "../../assets/defaultProfilePic.png";
@@ -21,7 +20,6 @@ const Navbar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const { userData } = useUserData();
-
 
   const searchResultsRef = useRef();
 
@@ -49,14 +47,12 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await axios.post("http://localhost:8800/api/auth/logout");
-      // Redirect to the login page
-      navigate("/login");
+      navigate("/login"); // Redirect to the login page
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
-  console.log('currentUser:', currentUser);
-  console.log('userData:', userData);
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -118,4 +114,5 @@ const Navbar = () => {
     </nav>
   );
 };
+
 export default Navbar;

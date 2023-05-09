@@ -12,7 +12,7 @@ const Register = () => {
     universityEmail: "",
   });
   const [error, setError] = useState(null);
-    const [inputErrors, setInputErrors] = useState({});
+  const [inputErrors, setInputErrors] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ const Register = () => {
       [event.target.name]: !event.target.validity.valid,
     });
   };
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();

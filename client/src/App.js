@@ -9,22 +9,22 @@ import NavPages from './components/navPages/NavPages';
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import './style.scss';
-import { DarkModeContext } from './context/darkModeContext';
+
 import { AuthContext } from './context/authContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ChatBox from './components/chatBox/ChatBox';
-import Advice from './components/advice/Advice'; 
+import Advice from './components/advice/Advice';
 
 const queryClient = new QueryClient();
 
 function App() {
   const { currentUser } = useContext(AuthContext);
-  const { darkMode } = useContext(DarkModeContext);
 
+  // Layout component
   const Layout = ({ children }) => {
     return (
       <QueryClientProvider client={queryClient}>
-        <div className={`theme-${darkMode ? 'dark' : 'light'}`}>
+        <div className="theme-light">
           <Navbar />
           <NavPages />
           <div style={{ display: 'flex', flexGrow: 1 }}>
@@ -34,7 +34,6 @@ function App() {
       </QueryClientProvider>
     );
   };
-
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
@@ -83,11 +82,11 @@ function App() {
       ),
     },
     {
-      path: '/advice', 
+      path: '/advice',
       element: (
         <QueryClientProvider client={queryClient}>
           <Layout>
-            <Advice/>
+            <Advice />
           </Layout>
         </QueryClientProvider>
       ),

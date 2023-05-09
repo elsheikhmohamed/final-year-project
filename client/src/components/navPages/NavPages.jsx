@@ -3,10 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import { HomeOutlined, MessageOutlined, SmartToyOutlined } from "@mui/icons-material";
 import "./navPages.scss";
 
+
 const NavPages = () => {
+  // Get current location for determining active link
   const location = useLocation();
+
+  // Set state for the active link
   const [activeLink, setActiveLink] = useState(null);
 
+  // Handle click event for nav links
   const handleLinkClick = (link) => {
     if (activeLink === link) {
       setActiveLink(null);
@@ -15,9 +20,11 @@ const NavPages = () => {
     }
   };
 
+
   return (
     <nav className="navpages">
       <div className="navpages-left">
+
         <Link
           to="/"
           className={`navpages-link ${activeLink === null && location.pathname === "/" ? "active" : ""}`}
@@ -25,6 +32,7 @@ const NavPages = () => {
         >
           <HomeOutlined className="navpages-icon" style={{ fontSize: 30 }} />
         </Link>
+
         <Link
           to="/chatBox"
           className={`navpages-link ${activeLink === "/chatBox" || location.pathname === "/chatBox" ? "active" : ""}`}
@@ -32,6 +40,7 @@ const NavPages = () => {
         >
           <MessageOutlined className="navpages-icon" style={{ fontSize: 30 }} />
         </Link>
+
         <Link
           to="/advice"
           className={`navpages-link ${activeLink === "/advice" || location.pathname === "/advice" ? "active" : ""}`}

@@ -1,25 +1,23 @@
 import React, { useContext, useState } from 'react';
 import noUser from "../../assets/defaultProfilePic.png";
 
-// Styles
 import './comments.scss';
 
-// Context
 import { AuthContext } from '../../context/authContext';
 import { useUserData } from "../../context/userDataContext";
 
-// Moment.js
 import moment from 'moment';
 
-// Custom Hooks
 import { useComments } from '../../hooks/useComments';
 
 const Comments = ({ postId }) => {
+
   const [desc, setDesc] = useState('');
   const { currentUser } = useContext(AuthContext);
   const { userData } = useUserData();
   const user = userData[currentUser.id] || currentUser;
 
+  // Custom hook for fetching and adding comments
   const { isLoading, error, data, addCommentMutation } = useComments(postId);
 
   // Handle submit of new comment
@@ -28,7 +26,6 @@ const Comments = ({ postId }) => {
     addCommentMutation.mutate({ desc, postId });
     setDesc('');
   };
-
 
   return (
     <div className="comments">
@@ -40,7 +37,7 @@ const Comments = ({ postId }) => {
 
         <input
           type="text"
-          placeholder="write a comment"
+          placeholder="Write a comment"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
@@ -49,9 +46,9 @@ const Comments = ({ postId }) => {
         </button>
       </div>
       {error ? (
-        "Something went wrong"
+        <div>Something went wrong</div>
       ) : isLoading ? (
-        "loading"
+        <div>Loading</div>
       ) : (
         data.map((comment) => (
           <div className="comments-comment" key={comment.id}>

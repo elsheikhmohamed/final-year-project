@@ -1,14 +1,12 @@
 import "./share.scss";
-
-// Import image assets
-import Image from "../../assets/img.png";
-import noUser from "../../assets/defaultProfilePic.png";
-
-// Import dependencies
-import { useSharePost } from "../../hooks/useSharePost";
-import { useUserData } from "../../context/userDataContext";
 import { useState } from "react";
 import { makeRequest } from "../../axios";
+
+import Upload from "../../assets/upload.png";
+import noUser from "../../assets/defaultProfilePic.png";
+
+import { useSharePost } from "../../hooks/useSharePost";
+import { useUserData } from "../../context/userDataContext";
 
 const Share = () => {
   const [file, setFile] = useState(null);
@@ -17,6 +15,7 @@ const Share = () => {
   const { userData } = useUserData();
   const user = userData[currentUser.id] || currentUser;
 
+  // Function to upload a file
   const upload = async () => {
     try {
       const formData = new FormData();
@@ -28,6 +27,7 @@ const Share = () => {
     }
   };
 
+  // Function to handle form submission
   const handleClick = async (e) => {
     e.preventDefault();
     let imgUrl = "";
@@ -41,6 +41,7 @@ const Share = () => {
     <div className="share-container">
       <div className="share-content">
         <div className="share-input-section">
+          {/* User image and input */}
           <div className="share-user-image">
             <img
               src={user?.profilePic ? `/upload/${user?.profilePic}` : noUser}
@@ -55,6 +56,7 @@ const Share = () => {
               value={desc}
             />
           </div>
+          {/* Preview of the selected file */}
           <div className="share-image-preview">
             {file &&
               (file.type === "application/pdf" ? (
@@ -75,6 +77,7 @@ const Share = () => {
           </div>
         </div>
         <hr />
+        {/* Share actions (add image and submit) */}
         <div className="share-actions">
           <div className="share-add-image">
             <input
@@ -87,7 +90,7 @@ const Share = () => {
 
             <label htmlFor="file">
               <div className="image-upload-item">
-                <img src={Image} alt="" />
+                <img src={Upload} alt="" />
                 <span>Add Img/PDF</span>
               </div>
             </label>

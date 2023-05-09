@@ -2,15 +2,18 @@ import React, { useState, useEffect, useMemo } from "react";
 import "./advice.scss";
 
 function Advice() {
+  // State variables
   const [adviceId, setAdviceId] = useState(null);
   const [advice, setAdvice] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [invalidSearch, setInvalidSearch] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
+  // Handle search form submission
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
+      // Fetch advice search results
       fetch(`https://api.adviceslip.com/advice/search/${searchTerm}`)
         .then((response) => response.json())
         .then((data) => {
@@ -24,6 +27,7 @@ function Advice() {
     }
   };
 
+  // Filter search results to remove duplicates
   const filteredResults = useMemo(() => {
     if (searchResults.length > 0) {
       const uniqueResults = searchResults.filter(
@@ -35,6 +39,7 @@ function Advice() {
     return [];
   }, [searchResults]);
 
+  // Set random advice when filteredResults changes
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * filteredResults.length);
     const randomAdvice = filteredResults[randomIndex];
@@ -44,6 +49,7 @@ function Advice() {
     }
   }, [filteredResults]);
 
+  // Fetch initial random advice
   useEffect(() => {
     fetch("https://api.adviceslip.com/advice")
       .then((response) => response.json())
@@ -53,6 +59,7 @@ function Advice() {
       });
   }, []);
 
+  // Render component
   return (
     <div className="advice">
       <div className="advice-container">

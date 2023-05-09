@@ -3,7 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import "./login.scss";
 
+
 const Login = () => {
+  // Declare state for form inputs and errors
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
@@ -13,17 +15,20 @@ const Login = () => {
     password: null,
   });
 
+  // Hooks for navigation and authentication
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
+  // Handle input changes and reset error messages
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setErrors((prev) => ({ ...prev, [e.target.name]: null }));
   };
 
+  // Handle login form submission
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     // Validate inputs before making the API call
     if (!inputs.username.trim() || !inputs.password.trim()) {
       setErrors({
@@ -32,11 +37,12 @@ const Login = () => {
       });
       return;
     }
-  
+
     try {
       await login(inputs);
       navigate("/");
     } catch (err) {
+      // Handle error responses from the API
       if (err.response) {
         // Check if the status code is 404, and display a generic message
         if (err.response.status === 404) {
@@ -70,6 +76,7 @@ const Login = () => {
     }
   };
 
+  // Function to apply styles to input fields based on error state
   const inputStyle = (error) => (error ? { borderColor: "red" } : {});
 
   return (
@@ -85,7 +92,6 @@ const Login = () => {
             onChange={handleChange}
             style={inputStyle(errors.username)}
           />
-          
 
           <input
             type="password"

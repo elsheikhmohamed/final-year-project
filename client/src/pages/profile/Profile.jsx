@@ -5,7 +5,7 @@ import noUser from "../../assets/defaultProfilePic.png";
 
 import { AuthContext } from "../../context/authContext";
 import Posts from "../../components/posts/Posts";
-import { useContext, useState,useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -15,14 +15,17 @@ const Profile = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
+  // Get the user ID from the URL path
   const userId = parseInt(useLocation().pathname.split("/")[2]);
 
+  // Fetch user data
   const { isLoading, data } = useQuery(["user"], () =>
     makeRequest.get("/users/find/" + userId).then((res) => {
       return res.data;
     })
   );
 
+  // Fetch followers count data
   const { isLoading: followersCountIsLoading, data: followersCountData } =
     useQuery(["followersCount"], () =>
       makeRequest
@@ -32,6 +35,7 @@ const Profile = () => {
         })
     );
 
+  // Fetch following count data
   const { isLoading: followingCountIsLoading, data: followingCountData } =
     useQuery(["followingCount"], () =>
       makeRequest
@@ -41,6 +45,7 @@ const Profile = () => {
         })
     );
 
+  // Fetch relationship data
   const { isLoading: relationshipIsLoading, data: relationshipData } = useQuery(
     ["relationship"],
     () =>
@@ -48,8 +53,10 @@ const Profile = () => {
         return res.data;
       })
   );
+
   const queryClient = useQueryClient();
 
+  // Mutation to handle follow/unfollow actions
   const mutation = useMutation(
     (following) => {
       if (following)
@@ -64,17 +71,20 @@ const Profile = () => {
     }
   );
 
+  // Handle follow/unfollow button click
   const handleFollow = () => {
     mutation.mutate(relationshipData.includes(currentUser.id));
   };
+
+  // Invalidate followers and following count when mutation is not loading
   useEffect(() => {
     if (!mutation.isLoading) {
       queryClient.invalidateQueries(["followersCount"]);
       queryClient.invalidateQueries(["followingCount"]);
     }
   }, [mutation.isLoading, queryClient]);
-  
 
+  
   return (
     <section className="profile">
       {isLoading ? (

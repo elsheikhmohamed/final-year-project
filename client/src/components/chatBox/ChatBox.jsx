@@ -1,16 +1,21 @@
 import './chatBox.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
+
+// Initialize the socket.io client
 const socket = io("http://localhost:8800");
 
 const ChatBox = () => {
+  // State variables
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [joined, setJoined] = useState(false);
 
+  // Ref to scroll to the bottom of the messages
   const messagesEndRef = useRef(null);
 
+  // Set up socket listeners for chat and update events
   useEffect(() => {
     socket.on('update', (update) => {
       setMessages((prevMessages) => [...prevMessages, { type: 'update', text: update }]);
@@ -21,15 +26,18 @@ const ChatBox = () => {
     });
 
     return () => {
+      // Remove socket listeners when the component unmounts
       socket.off('update');
       socket.off('chat');
     };
   }, []);
 
+  // Scroll to the bottom of the messages when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Handle joining the chat
   const joinChat = () => {
     if (username.length === 0) {
       return;
@@ -38,6 +46,7 @@ const ChatBox = () => {
     setJoined(true);
   };
 
+  // Handle sending a message
   const sendMessage = () => {
     if (message.length === 0) {
       return;
@@ -52,7 +61,7 @@ const ChatBox = () => {
     setMessage('');
   };
 
-
+  // Render a message based on its type
   const renderMessage = (message) => {
     if (message.type === 'my') {
       return (
@@ -77,9 +86,11 @@ const ChatBox = () => {
     }
   };
 
+  // Render the chat box
   return (
     <div className="chat">
       {!joined ? (
+        // Render the join screen if the user has not joined yet
         <div className="join-screen">
           <h2>Join Discussion Room</h2>
           <input
@@ -92,12 +103,14 @@ const ChatBox = () => {
           <button onClick={joinChat}>Join</button>
         </div>
       ) : (
+        // Render the chat screen if the user has joined
         <div className="chat-screen">
           <div className="header">
             <div className="logo">Discussion Room</div>
           </div>
           <div className="messages">
-            {messages.map((message, index) => (
+            {messages.map((message, index) =>
+            (
               <React.Fragment key={index}>
                 {renderMessage(message)}
                 {index === messages.length - 1 ? <div ref={messagesEndRef} /> : null}

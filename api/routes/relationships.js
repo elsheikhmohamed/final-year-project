@@ -1,9 +1,14 @@
 import express from "express";
-import { getRelationships, addRelationship, deleteRelationship, getFollowersCount, getFollowingCount } from "../controllers/relationship.js";
+import { 
+  getRelationships, 
+  addRelationship, 
+  deleteRelationship, 
+  getFollowersCount, 
+  getFollowingCount 
+} from "../controllers/relationship.js";
 
 const router = express.Router();
 
-// Existing routes
 router.get("/", getRelationships);
 router.post("/", addRelationship);
 router.delete("/", deleteRelationship);

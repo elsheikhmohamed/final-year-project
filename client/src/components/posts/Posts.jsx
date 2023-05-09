@@ -2,8 +2,9 @@ import Post from "../post/Post";
 import "./posts.scss";
 import { useFetchPosts } from "../../hooks/useFetchPosts";
 
+// Function to return unique posts
 function getUniquePosts(posts) {
-  if (!posts) return []; // if posts is null, return empty array
+  if (!posts) return []; // If posts is null, return empty array
 
   const seen = new Set();
   return posts.filter((post) => {
@@ -16,9 +17,12 @@ function getUniquePosts(posts) {
   });
 }
 
+// Posts component
 const Posts = ({ userId }) => {
+  // Fetch posts using the custom hook
   const { isLoading, error, data } = useFetchPosts(userId);
 
+  // Get unique posts
   const uniquePosts = getUniquePosts(data);
 
   return (
@@ -31,5 +35,6 @@ const Posts = ({ userId }) => {
     </div>
   );
 };
+
 
 export default Posts;

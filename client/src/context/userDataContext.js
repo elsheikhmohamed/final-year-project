@@ -5,14 +5,19 @@ import { makeRequest } from "../axios";
 
 export const UserDataContext = createContext();
 
+// Custom hook to use UserDataContext
 export const useUserData = () => {
   return useContext(UserDataContext);
 };
 
 export const UserDataContextProvider = ({ children }) => {
+  // Declare state for user data
   const [userData, setUserData] = useState({});
+
+  // Get the current user from AuthContext
   const { currentUser } = useContext(AuthContext);
 
+  // Fetch user data using React Query, only when currentUser is available
   const { data } = useQuery(
     ["user"],
     async () => {
@@ -24,8 +29,8 @@ export const UserDataContextProvider = ({ children }) => {
     },
     { enabled: !!currentUser }
   );
-  
 
+  // Update userData state whenever new data is fetched
   useEffect(() => {
     if (data) {
       setUserData((prevUserData) => {

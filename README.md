@@ -1,18 +1,19 @@
-### CampusShare - A Social Media App for Students
+# CampusShare - A Social Media App for Students
 
 CampusShare is a social media platform designed specifically for students to connect, collaborate, and share their educational experiences. This app is built using React, Node.js, MySQL, and Socket.IO, providing a seamless and interactive experience for users.
 
 
-### Getting Started:
+## Getting Started:
 
 Before you get started, ensure that you have the following software installed on your local machine:
 
-Node.js v14.0.0 or higher
-npm v6.14.0 or higher
-MySQL v5.7 or higher
-IDE (for better navigation)
+- Node.js v14.0.0 or higher
+- npm v6.14.0 or higher
+- MySQL v5.7 or higher
+- IDE (for better navigation)
+- MySQL Workbench v5.7 or higher
 
-### Installation:
+### `Installation:`
 
 1. Clone the repository
 git clone https://github.com/elsheikhmohamed/final-year-project.git
