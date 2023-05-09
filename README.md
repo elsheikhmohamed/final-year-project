@@ -39,8 +39,8 @@ CampusShare is a social media platform designed specifically for students to con
 
 ### 4. Set up the MySQL database by running the provided SQL scripts (found in the product folder).
 
-    - import mysql database file to your localhost database software (MySQL Workbench)
-    - make sure the name of the database stays the same as provided.
+    - Import mysql database file to your localhost database software (MySQL Workbench)
+    - Make sure the name of the database stays the same as provided.
 
 ***Make sure these information is right***
 
