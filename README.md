@@ -39,9 +39,9 @@ Project is built with:
 ### 1. Clone the repository
     git clone https://github.com/elsheikhmohamed/final-year-project.git
 
-### 2. Change to the product directory
+### 2. Change to the main directory
 
-    cd product
+    cd final-year-project-main
 
 ### 3. Install the dependencies for the backend and frontend
 
